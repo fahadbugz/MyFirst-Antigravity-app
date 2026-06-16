@@ -555,7 +555,7 @@ body {
     opacity: 1;
 }
 
-.btn-action-tweet {
+.btn-action-tweet, .btn-action-copy {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.05);
     color: var(--text-secondary);
@@ -575,6 +575,14 @@ body {
     border-color: #1d9bf0;
     transform: scale(1.1);
     box-shadow: 0 4px 12px rgba(29, 155, 240, 0.3);
+}
+
+.btn-action-copy:hover {
+    color: #ffffff;
+    background: var(--color-primary); /* Slate-blue accent */
+    border-color: var(--color-primary);
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3);
 }
 
 /* Update Description Text & HTML formatting */
