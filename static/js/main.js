@@ -48,6 +48,7 @@ const elements = {
     btnCopyTweet: document.getElementById('btn-copy-tweet'),
     copyBtnText: document.getElementById('copy-btn-text'),
     btnPostTweet: document.getElementById('btn-post-tweet'),
+    themeCheckbox: document.getElementById('theme-checkbox'),
     
     // Toast
     toastContainer: document.getElementById('toast-container')
@@ -55,6 +56,16 @@ const elements = {
 
 // Initialize Application
 document.addEventListener('DOMContentLoaded', () => {
+    // Load saved theme preference
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+        elements.themeCheckbox.checked = true;
+    } else {
+        document.body.classList.remove('light-theme');
+        elements.themeCheckbox.checked = false;
+    }
+
     setupEventListeners();
     fetchReleases(false); // Initial load (uses cache if fresh)
     
@@ -69,6 +80,9 @@ function setupEventListeners() {
     
     // Export CSV
     elements.btnExportCsv.addEventListener('click', exportFilteredToCSV);
+
+    // Theme Toggle
+    elements.themeCheckbox.addEventListener('change', toggleTheme);
     
     // Search
     elements.searchInput.addEventListener('input', handleSearchInput);
@@ -827,6 +841,20 @@ function escapeCSV(val) {
         return `"${str}"`;
     }
     return str;
+}
+
+// Toggle between light and dark theme
+function toggleTheme(e) {
+    const isLight = e.target.checked;
+    if (isLight) {
+        document.body.classList.add('light-theme');
+        localStorage.setItem('theme', 'light');
+        showToast('Swapped to Light Mode', 'success');
+    } else {
+        document.body.classList.remove('light-theme');
+        localStorage.setItem('theme', 'dark');
+        showToast('Swapped to Dark Mode', 'success');
+    }
 }
 
 /* Toast Notifications System */
